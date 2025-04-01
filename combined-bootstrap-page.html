@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio</title>
+    <!-- Bootstrap CSS and Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            position: relative;
+        }
+        
+        /* Background pattern */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 30% 20%, rgba(106, 17, 203, 0.05) 0%, transparent 150px),
+                radial-gradient(circle at 70% 60%, rgba(37, 117, 252, 0.05) 0%, transparent 150px);
+            z-index: -1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            margin: 0.75rem auto 0;
+        }
+        
+        /* Hover animations */
+        .hover-grow {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-grow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Header Styles */
+        .header-container {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            margin-bottom: 3rem;
+        }
+        
+        .header-title {
+            font-weight: 500;
+            color: #f8f9fa;
+        }
+        
+        .header-subtitle {
+            font-weight: 300;
+            color: #e9ecef;
+            margin-top: 1rem;
+        }
+        
+        /* Profile Card Styles */
+        .profile-container {
+            padding: 2rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .profile-card {
+            max-width: 350px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        
+        .card-header {
+            color: white;
+        }
+        
+        .profile-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .profile-name {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: white;
+        }
+        
+        .profile-bio {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.25rem;
+            transition: opacity 0.2s;
+        }
+        
+        .social-icons a:hover {
+            opacity: 0.8;
+        }
+        
+        /* Contact Form Styles */
+        .form-container {
+            max-width: 350px;
+            margin: 0 auto 3rem;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+        
+        .form-title {
+            margin-bottom: 1.5rem;
+            color: #212529;
+        }
+        
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+        }
+        
+        .form-control:focus {
+            border-color: rgba(106, 17, 203, 0.4);
+            box-shadow: 0 0 0 0.25rem rgba(106, 17, 203, 0.25);
+        }
+        
+        .btn {
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Form validation styles */
+        .form-control.is-invalid {
+            border-color: #dc3545;
+            padding-right: calc(1.5em + 0.75rem);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(0.375em + 0.1875rem) center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        }
+        
+        .invalid-feedback {
+            display: none;
+            width: 100%;
+            margin-top: 0.25rem;
+            font-size: 0.875em;
+            color: #dc3545;
+        }
+        
+        /* Portfolio Styles */
+        .portfolio-container {
+            padding: 3rem 0;
+        }
+        
+        .portfolio-card {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            height: 100%;
+            margin-bottom: 1.5rem;
+        }
+        
+        .portfolio-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+        
+        .portfolio-title {
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .portfolio-description {
+            margin-bottom: 1.25rem;
+            color: #6c757d;
+        }
+        
+        .portfolio-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+        
+        .portfolio-tag {
+            background-color: rgba(106, 17, 203, 0.1);
+            color: #6a11cb;
+            border-radius: 2rem;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #212529;
+            color: #e9ecef;
+            padding: 1.5rem 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark gradient-bg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Jane Doe</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home" aria-current="page">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header id="home" class="header-container">
+        <div class="container text-center">
+            <h1 class="header-title">Jane Doe</h1>
+            <p class="header-subtitle">Product Designer & Developer</p>
+        </div>
+    </header>
+
+    <!-- Profile Section -->
+    <section id="about" class="profile-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <div class="profile-card gradient-bg hover-grow">
+                        <!-- Profile Image -->
+                        <img src="/api/placeholder/400/320" alt="Profile Picture" class="profile-image">
+                        
+                        <div class="card-content">
+                            <!-- Profile Name -->
+                            <h3 class="profile-name">Jane Doe</h3>
+                            
+                            <!-- Profile Bio -->
+                            <p class="profile-bio">
+                                Product designer with 5+ years of experience creating user-centered digital experiences. Passionate about solving complex problems with simple, elegant solutions.
+                            </p>
+                            
+                            <!-- Social Media Icons -->
+                            <div class="social-icons">
+                                <a href="#" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+                                <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                            </div>
+                            
+                            <!-- Contact Button -->
+                            <a href="#contact" class="btn btn-light w-100">Contact Me</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio-container">
+        <div class="container">
+            <h2 class="section-title text-gradient">My Work</h2>
+            <div class="row">
+                <!-- Project 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="portfolio-card hover-grow">
+                        <img src="/api/placeholder/400/320" alt="E-Commerce App Redesign" class="portfolio-image">
+                        <div class="portfolio-content">
+                            <h3 class="portfolio-title">E-Commerce App Redesign</h3>
+                            <div class="portfolio-tags">
+                                <span class="portfolio-tag">UI/UX</span>
+                                <span class="portfolio-tag">Mobile</span>
+                            </div>
+                            <p class="portfolio-description">Complete redesign of a fashion e-commerce app that increased conversion rates by 37% and improved user satisfaction scores.</p>
+                            <a href="#" class="btn btn-outline-primary" aria-label="View E-Commerce App Redesign Project">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="portfolio-card hover-grow">
+                        <img src="/api/placeholder/400/320" alt="Banking Dashboard" class="portfolio-image">
+                        <div class="portfolio-content">
+                            <h3 class="portfolio-title">Banking Dashboard</h3>
+                            <div class="portfolio-tags">
+                                <span class="portfolio-tag">Web Design</span>
+                                <span class="portfolio-tag">Fintech</span>
+                            </div>
+                            <p class="portfolio-description">Modern dashboard interface for a leading financial institution featuring real-time analytics and responsive design.</p>
+                            <a href="#" class="btn btn-outline-primary" aria-label="View Banking Dashboard Project">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="portfolio-card hover-grow">
+                        <img src="/api/placeholder/400/320" alt="Travel App" class="portfolio-image">
+                        <div class="portfolio-content">
+                            <h3 class="portfolio-title">Travel Experience App</h3>
+                            <div class="portfolio-tags">
+                                <span class="portfolio-tag">UX Research</span>
+                                <span class="portfolio-tag">Prototyping</span>
+                            </div>
+                            <p class="portfolio-description">Innovative travel companion app with personalized recommendations based on user preferences and location data.</p>
+                            <a href="#" class="btn btn-outline-primary" aria-label="View Travel Experience App Project">View Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact" class="contact-container">
+        <div class="container">
+            <h2 class="section-title text-gradient">Get In Touch</h2>
+            <div class="form-container hover-grow">
+                <form id="contactForm" novalidate>
+                    <!-- Name field -->
+                    <div class="form-group mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Your name" required aria-describedby="nameHelp">
+                        <div id="nameHelp" class="invalid-feedback">Please enter your name.</div>
+                    </div>
+                    
+                    <!-- Email field -->
+                    <div class="form-group mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Your email address" required aria-describedby="emailHelp">
+                        <div id="emailHelp" class="invalid-feedback">Please enter a valid email address.</div>
+                    </div>
+                    
+                    <!-- Message field -->
+                    <div class="form-group mb-4">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" placeholder="Your message" required aria-describedby="messageHelp"></textarea>
+                        <div id="messageHelp" class="invalid-feedback">Please enter your message.</div>
+                    </div>
+                    
+                    <!-- Submit button -->
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary px-4 gradient-bg" style="border: none;" aria-label="Submit contact form">Submit</button>
+                    </div>
+
+                    <!-- Success message (hidden by default) -->
+                    <div class="alert alert-success mt-3 d-none" id="submitSuccess" role="alert">
+                        <i class="bi bi-check-circle-fill me-2"></i> Your message has been sent successfully!
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="gradient-bg">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 Jane Doe. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Form Validation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contactForm');
+            
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                if (!form.checkValidity()) {
+                    event.stopPropagation();
+                    highlightInvalidFields();
+                } else {
+                    // Simulate form submission
+                    showSuccessMessage();
+                }
+                
+                form.classList.add('was-validated');
+            });
+            
+            function highlightInvalidFields() {
+                const fields = form.querySelectorAll('input, textarea');
+                
+                fields.forEach(field => {
+                    if (!field.validity.valid) {
+                        field.classList.add('is-invalid');
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                });
+            }
+            
+            function showSuccessMessage() {
+                const successAlert = document.getElementById('submitSuccess');
+                successAlert.classList.remove('d-none');
+                
+                // Reset form
+                form.reset();
+                form.classList.remove('was-validated');
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successAlert.classList.add('d-none');
+                }, 5000);
+            }
+            
+            // Add smooth scrolling for nav links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70, // Adjust for navbar height
+                            behavior: 'smooth'
+                        });
+                        
+                        // Update active nav link
+                        document.querySelectorAll('.nav-link').forEach(link => {
+                            link.removeAttribute('aria-current');
+                        });
+                        this.setAttribute('aria-current', 'page');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
